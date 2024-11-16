@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('https://www.contexteditor.org/wp-content/uploads/2023/03/how-to-insert-background-image-in-html.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            color: white;
+        }
+        .navbar {
+            background-color: rgba(51, 51, 51, 0.8); /* Slight transparency for navbar */
+            color: white;
+            padding: 10px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            z-index: 1000;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .menu-icon {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-left: 15px;
+        }
+        .menu-icon div {
+            background-color: white;
+            height: 3px;
+            border-radius: 2px;
+            width: 25px;
+        }
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background-color: rgba(51, 51, 51, 0.9); /* Transparent background */
+            border-radius: 8px;
+            padding: 10px;
+        }
+        .dropdown a {
+            display: block;
+            padding: 10px;
+            color: white;
+            text-decoration: none;
+            text-align: left;
+            border-bottom: 1px solid #555;
+        }
+        .dropdown a:hover {
+            background-color: #555;
+        }
+        .show {
+            display: block;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            margin-top: 60px; /* Adjust for navbar height */
+        }
+        .login-container {
+            background-color: rgba(242, 242, 242, 0.3); /* Increased transparency for central division */
+            padding: 20px;
+            border-radius: 8px;
+            width: 400px;
+            text-align: center;
+            color: white; /* Ensure text remains white for contrast */
+        }
+        input[type="email"], input[type="password"] {
+            width: 90%;
+            padding: 8px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .login-btn {
+            background-color: blue;
+            color: white;
+            padding: 6px 10px;
+            width: 50%;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .login-btn:hover {
+            background-color: darkblue;
+        }
+        .register-link {
+            margin-top: 10px;
+            display: block;
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <a href="http://127.0.0.1:8000/">Home</a> <!-- Home Button -->
+        <a href="http://127.0.0.1:8000/login/">Login</a>
+        <a href="http://127.0.0.1:8000/register/">Register</a>
+        <div class="menu-icon" onclick="toggleDropdown()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="dropdown" id="dropdownMenu">
+            <a href="#">My Profile</a>
+            <a href="http://127.0.0.1:8000/login">Login</a>
+            <a href="http://127.0.0.1:8000/register">Register</a>
+            <a href="http://127.0.0.1:8000/Reset-Password">Reset Password</a>
+            <a href="#">Change Settings</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="login-container">
+            <h2>Login</h2>
+            <form onsubmit="loginRedirect(event)">
+                <input type="text" placeholder="Userid.." required>
+                <input type="password" placeholder="Enter password.." required minlength="8">
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+            <p>Don't have an account? <a href="http://127.0.0.1:8000/register/" class="register-link">Register</a></p>
+        </div>
+    </div>
+
+    <script>
+        function toggleDropdown() {
+            var dropdown = document.getElementById("dropdownMenu");
+            dropdown.classList.toggle("show");
+        }
+        window.onclick = function(event) {
+            if (!event.target.matches('.menu-icon')) {
+                var dropdowns = document.getElementsByClassName("dropdown");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+
+        // Function to redirect to the dashboard on login
+        function loginRedirect(event) {
+            event.preventDefault(); // Prevent form from submitting
+            // You can add login validation here if needed
+
+            // Redirect to the dashboard
+            window.location.href = "http://127.0.0.1:8000/dashboard/";
+        }
+    </script>
+</body>
+</html>
